@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.css}">
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="" th:src="@{/webjars/jquery/3.3.1/jquery.js}"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}" src=""></script>
+</head>
+<body>
+<div class="container">
+    <form th:action="@{/user/login}" action="#" class="form-signin" role="form" method="post">
+        <h2 class="form-signin-heading" th:text="#{login.tip}"></h2>
+        <p style="color:red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
+        <input type="text" name="username" class="form-control" th:placeholder="#{login.username}" placeholder="" required autofocus>
+        <div style="height:10px;clear:both;display:block"></div>
+        <input name="password" type="password" class="form-control" th:placeholder="#{login.password}" placeholder="" required>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" value="remember-me"> [[#{login.remember}]]
+            </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" th:text="#{login.btn}"></button>
+        <a class="btn btn-sm" th:href="@{/index.html(l='zh_CN')}">中文</a>
+        <a class="btn btn-sm" th:href="@{/index.html(l='en_US')}">English</a>
+    </form>
+</div>
+</body>
+</html>

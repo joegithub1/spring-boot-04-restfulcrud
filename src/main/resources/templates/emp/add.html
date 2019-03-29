@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>员工添加</title>
+</head>
+<body>
+<form th:action="@{/emp}" method="post">
+    <input type="hidden" name="id" th:value="${emp.id}" >
+    <!--员工ID不等于null显示put-->
+    <input type="hidden" name="_method" value="put" th:if="!${#strings.isEmpty(emp.id)}">
+
+    <label>lastName</label>
+    <input name="lastName" th:value="${emp.lastName}">
+    <br/>
+    <label>email</label>
+    <input name="email" th:value="${emp.email}">
+    <br/>
+    <label>gender</label>
+    <input type="radio" name="gender" value="0" th:checked="${emp.gender==0}">女
+    <input type="radio" name="gender" value="1" th:checked="${emp.gender==1}">男
+    <br/>
+    <label>Birth</label>
+    <input type="text" name="birth" th:value="${#dates.format(emp.birth,'yyyy-MM-dd')}">
+    <br/>
+    <label>部门</label>
+    <select name="department.id">
+        <option th:selected="${d.id == emp.department.id}" th:each="d:${depts}" th:text="${d.name}" th:value="${d.id}"></option>
+    </select>
+    <br/>
+    <input type="submit" th:value="${#strings.isEmpty(emp.id)}?'添加':'修改'" value="">
+</form>
+</body>
+</html>

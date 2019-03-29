@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" th:src="@{/webjars/jquery/1.8.3/jquery.js}"></script>
+</head>
+<body>
+<a th:href="@{/emp}">添加</a>
+<table>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>lastName</th>
+            <th>email</th>
+            <th>gender</th>
+            <th>departmentName</th>
+            <th>birth</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="emp:${emps}">
+            <td th:text="${emp.id}"></td>
+            <td th:text="${emp.lastName}"></td>
+            <td th:text="${emp.email}"></td>
+            <td th:text="${emp.gender}==0?'女':'男'"></td>
+            <td th:text="${emp.department.name}"></td>
+            <td th:text="${#dates.format(emp.birth,'yyyy-MM-dd')}"></td>
+            <td>
+                <a th:href="@{emp/}+${emp.id}">编辑</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <!--<button class="deleteBtn" th:attr="del_url=@{emp/}+${emp.id}">删除</button>-->
+                <a href="javascript:void(0);" class="deleteBtn" th:attr="del_url=@{emp/}+${emp.id}" >删除</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<form id="deleteForm"  method="post">
+    <input type="hidden" name="_method" value="delete">
+</form>
+<script type="text/javascript">
+    //$(document).ready(function () {
+        $(".deleteBtn").click(function () {
+            var url = $(this).attr("del_url");
+            $("#deleteForm").attr("action",url);
+            $("#deleteForm").submit();
+            return false;
+        });
+   // });
+</script>
+</body>
+</html>
